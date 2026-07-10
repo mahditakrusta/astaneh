@@ -119,6 +119,7 @@ gap:24px;
 
   nav a:hover::after{ width:100%; }
 
+
   /* ================= HERO ================= */
   .hero{
     position:relative;
@@ -131,41 +132,32 @@ gap:24px;
     overflow:hidden;
     background: var(--bg-light);
   }
-  
+
   .hero-bg{
+
     position:absolute;
     inset:0;
 
     background-image:url("App Background.jpg");
+
     background-repeat:no-repeat;
-    background-size:cover;
-    background-position:center center;
-    
-    z-index:0;
-}
-  
-@media (orientation:landscape){
 
-.hero-bg{
     background-size:cover;
+
     background-position:center center;
-}
+
+    transform:scale(1.08);
+
+    transform-origin:center;
+
+    will-change:transform;
+
 
 }
-  
 /* ---------- Portrait (Hamburger) ---------- */
 
 @media (max-width:768px) and (orientation:portrait){
 
-.hero-bg{
-
-    background-image:url("App Background mobile.jpg");
-    background-size:contain;
-    background-position:center center;
-
-}
-
-}
 .menu-toggle{
     display:block;
 }
