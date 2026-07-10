@@ -155,24 +155,43 @@ gap:24px;
 
 }
 
-  @media (max-width:768px) and (orientation:portrait){
-    .hero-bg{
-      background-size:170% auto;
-      background-position:92% center;
-      transform:none;
-      animation:heroZoomMobile 20s ease-in-out infinite alternate;
-    }
-  }
+ @media (max-width:768px){
 
-  @keyframes heroZoomMobile{
-    from{background-size:170% auto;}
-    to{background-size:178% auto;}
-  }
+.hero-bg{
 
-  @keyframes heroZoom{
-    from{ transform: scale(1.05); }
-    to{ transform: scale(1.15); }
-  }
+position:absolute;
+inset:0;
+
+background-image:url("App Background.jpg");
+
+background-size:cover;
+
+background-position:center;
+
+transform:translateZ(0) scale(1.08);
+
+will-change:transform;
+
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+
+}
+
+@keyframes heroZoomMobile{
+
+from{
+
+transform:scale(1.18);
+
+}
+
+to{
+
+transform:scale(1.24);
+
+}
+
+}
 
   .hero-overlay{
     position:absolute;
