@@ -45,8 +45,8 @@
   /* ================= HEADER ================= */
   header{
     position:fixed;
-    top:0; right:0; left:0;
-    z-index:100;
+    top:0; right:0; left:0; 
+    z-index:3000;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -54,27 +54,52 @@
     transition: all .5s var(--ease);
   }
 
-  header.scrolled{
-    background: rgba(237,240,233,0.85);
-    backdrop-filter: blur(12px);
-    padding: 16px 60px;
-    box-shadow: 0 1px 20px rgba(0,0,0,0.05);
-  }
+ header.scrolled{
 
+    background:rgba(237,240,233,.78);
+
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+
+    border-bottom:1px solid rgba(255,255,255,.25);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,.08);
+
+    padding:16px 60px;
+
+    transition:
+        background .35s,
+        backdrop-filter .35s,
+        padding .35s,
+        box-shadow .35s;
+
+}
   .logo{
     font-size:1.4rem;
     font-weight:800;
     letter-spacing:1px;
     color: var(--dark);
     transition: color .4s;
+    user-select:none;
+    letter-spacing:.08em;
   }
 
   header.scrolled .logo{ color: var(--accent); }
 
-  nav ul{
-    display:flex;
-    gap:40px;
-  }
+ @media(max-width:600px){
+
+nav ul{
+
+display:flex;
+
+flex-direction:column;
+
+gap:24px;
+
+}
+
+}
 
   nav a{
     font-size:.95rem;
@@ -108,16 +133,27 @@
   }
 
   .hero-bg{
+
     position:absolute;
     inset:0;
-    background-image:url('App Background.jpg');
+
+    background-image:url("App Background.jpg");
+
     background-repeat:no-repeat;
+
     background-size:cover;
-    background-position:78% center;
-    transform:scale(1.03);
-    animation:heroZoom 20s ease-in-out infinite alternate;
+
+    background-position:center center;
+
+    transform:scale(1.08);
+
+    transform-origin:center;
+
     will-change:transform;
-  }
+
+    animation:heroZoom 20s ease-in-out infinite alternate;
+
+}
 
   @media (max-width:768px) and (orientation:portrait){
     .hero-bg{
@@ -238,12 +274,22 @@
   }
 
   /* ================= MANIFESTO ================= */
-  .manifesto{
+  .manifesto{ 
     position:relative;
     padding: 200px 15% 220px;
     background: var(--bg-light);
     overflow:hidden;
-  }
+    text-align:justify;
+
+    text-justify:inter-word;
+
+    hyphens:auto;
+
+    direction:rtl;
+    word-spacing:.02em;
+
+    letter-spacing:.01em;
+    }
 
   .deco-circle{
     position:absolute;
@@ -445,11 +491,99 @@
     .community{ padding: 100px 6%; }
     .cards{ grid-template-columns: 1fr; }
   }
+#mainNav{
 
-  @media (max-width: 600px){
-    nav{ display:none; }
-    .hero-content .pre-title{ letter-spacing:3px; font-size:.8rem;}
-  }
+pointer-events:auto;
+
+}
+
+#mainNav.open{
+
+pointer-events:auto;
+
+}
+
+.menu-toggle{
+
+display:none;
+
+width:46px;
+height:46px;
+
+border:none;
+background:none;
+
+cursor:pointer;
+
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+
+color:var(--dark);
+
+border-radius:50%;
+
+transition:
+background .25s,
+transform .25s;
+
+z-index:1002;
+
+}
+
+.menu-toggle:hover{
+
+background:rgba(133,73,72,.08);
+
+}
+
+.menu-toggle:active{
+
+transform:scale(.94);
+
+}
+.mobile-overlay{display:none}
+@media(max-width:600px){
+.menu-toggle{display:block}
+#mainNav{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:280px;
+height:100dvh;
+
+padding:90px 28px;
+
+background:rgba(237,240,233,.92);
+
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+
+transform:translateX(-100%);
+
+transition:
+transform .35s cubic-bezier(.4,0,.2,1);
+
+z-index:1001;
+
+border-left:1px solid rgba(255,255,255,.35);
+
+}
+#mainNav.open{
+
+transform:translateX(0);
+
+}
+#mainNav ul{display:flex;flex-direction:column;gap:24px}
+.mobile-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:1000}
+.mobile-overlay.show{display:block}
+body.menu-open{overflow:hidden}
+}
+
 </style>
 </head>
 <body>
@@ -457,7 +591,7 @@
   <!-- ================= HEADER ================= -->
   <header id="header">
     <div class="logo">آستانه</div>
-    <nav>
+    <button class="menu-toggle" id="menuToggle">&#9776;</button><nav id="mainNav">
       <ul>
         <li><a href="#hero">خانه</a></li>
         <li><a href="#community">تعامل محله</a></li>
@@ -497,7 +631,7 @@
   <!-- ================= COMMUNITY TEASER ================= -->
   <section class="community" id="community">
     <h2 class="section-title">فضای <span>تعامل محله</span></h2>
-    <p class="section-sub">آستانه، بستری‌ست برای برنامه‌ریزی و اطلاع‌رسانی جلسات، کارگاه‌ها و رویدادهای محله تهران پارس — به‌زودی در دسترس شما.</p>
+    <p class="section-sub">آستانه، بستری‌ست برای برنامه‌ریزی و اطلاع‌رسانی جلسات، کارگاه‌ها و رویدادهای محله تهرانپارس — به‌زودی در دسترس شما.</p>
 
     <div class="cards">
       <div class="card">
@@ -531,7 +665,7 @@
   <footer id="footer">
     <div class="f-logo">آستانه</div>
     <div class="f-line"></div>
-    <p>فضایی برای بودن، مکث و احیای احساس تعلق در محله تهران پارس © ۱۴۰۵</p>
+    <p>فضایی برای بودن، مکث و احیای احساس تعلق در محله تهرانپارس © ۱۴۰۵</p>
   </footer>
 
 <script>
@@ -583,5 +717,63 @@
   cards.forEach(card => cardObserver.observe(card));
 </script>
 
-</body>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <script>
+    const menuBtn=document.getElementById("menuToggle");
+    const menu=document.getElementById("mainNav");
+    const overlay=document.getElementById("mobileOverlay");
+
+    function closeMenu(){
+
+    menu.classList.remove("open");
+
+    overlay.classList.remove("show");
+
+    document.body.classList.remove("menu-open");
+
+    menuBtn.innerHTML="&#9776;";
+
+    }
+
+    menuBtn.addEventListener("click",()=>{
+
+    menu.classList.toggle("open");
+
+overlay.classList.toggle("show");
+
+document.body.classList.toggle("menu-open");
+
+menuBtn.innerHTML=menu.classList.contains("open")?"&times;":"&#9776;";
+
+});
+
+overlay.addEventListener("click",closeMenu);
+
+document.querySelectorAll("#mainNav a").forEach(link=>{
+
+link.addEventListener("click",(e)=>{
+
+e.preventDefault();
+
+const target = document.querySelector(link.getAttribute("href"));
+
+closeMenu();
+
+if(target){
+
+setTimeout(()=>{
+
+target.scrollIntoView({
+behavior:"smooth"
+});
+
+},300);
+
+}
+
+});
+
+});
+</script></body>
 </html>
