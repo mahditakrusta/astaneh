@@ -126,32 +126,42 @@ gap:24px;
     height:100svh;
     width:100%;
     display:flex;
+    isolation:isolate;
     align-items:center;
     justify-content:center;
     overflow:hidden;
     background: var(--bg-light);
+   
   }
 
-  .hero-bg{
+ .hero-bg{
 
-    position:absolute;
-    inset:0;
+position:absolute;
+inset:0;
 
-    background-image:url("App Background.jpg");
+width:100%;
+height:100%;
 
-    background-repeat:no-repeat;
+object-fit:cover;
+object-position:center;
 
-    background-size:cover;
+transform:scale(1.08);
 
-    background-position:center center;
+animation:heroZoom 20s ease-in-out infinite alternate;
 
-    transform:scale(1.08);
+will-change:transform;
 
-    transform-origin:center;
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
 
-    will-change:transform;
+transform-origin:center;
 
-    animation:heroZoom 20s ease-in-out infinite alternate;
+pointer-events:none;
+
+user-select:none;
+translate:0 0;
+
+contain:paint;
 
 }
 
@@ -159,21 +169,29 @@ gap:24px;
 
 .hero-bg{
 
-position:absolute;
-inset:0;
+object-fit:cover;
 
-background-image:url("App Background.jpg");
+/* اگر سوژه تصویر سمت راست است */
+object-position:78% center;
 
-background-size:cover;
+animation:heroZoomMobile 20s ease-in-out infinite alternate;
 
-background-position:center;
+}
 
-transform:translateZ(0) scale(1.08);
+}
+ @keyframes heroZoom{
 
-will-change:transform;
+from{
 
-backface-visibility:hidden;
--webkit-backface-visibility:hidden;
+transform:scale(1.08);
+
+}
+
+to{
+
+transform:scale(1.15);
+
+}
 
 }
 
@@ -181,18 +199,17 @@ backface-visibility:hidden;
 
 from{
 
-transform:scale(1.18);
+transform:scale(1.15);
 
 }
 
 to{
 
-transform:scale(1.24);
+transform:scale(1.22);
 
 }
 
 }
-
   .hero-overlay{
     position:absolute;
     inset:0;
@@ -622,7 +639,7 @@ body.menu-open{overflow:hidden}
 
   <!-- ================= HERO ================= -->
   <section class="hero" id="hero">
-    <div class="hero-bg"></div>
+   <img class="hero-bg" src="images/App Background.jpg" alt="">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <span class="pre-title"> </span>
